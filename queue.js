@@ -5,12 +5,16 @@ class Queue {
   }
   //methods and properties
   //add the item
-  enqueue(item) {
-    this.items.push(item);
+  add(item) {
+    this.items.unshift(item);
   }
   //remove the first item which was added
-  dequeue() {
+  remove() {
     return this.items.shift();
+  }
+  //show the last item
+  peek() {
+    return this.items[this.items.length - 1];
   }
   //show the first item in the Queue
   front() {
@@ -30,8 +34,26 @@ class Queue {
   }
 }
 
-const q = new Queue();
-q.enqueue("Medina");
-q.enqueue("Robert");
-q.enqueue("Daniel");
-console.log(q.print());
+//creating 2 new Queues
+const firstQueue = new Queue();
+const secondQueue = new Queue();
+
+//and defining the function which will take an inputs from the 2 new Queues and create additional Queue
+function wave(sourceOne, sourceTwo) {
+  //new Queue
+  const thirdQueue = new Queue();
+  //Go to the end of Queue One and Two
+  while (sourceOne.peek() || sourceTwo.peek()) {
+    //take the last item from the first Queue
+    if (sourceOne.peek()) {
+      //and add it to the new Queue
+      thirdQueue.add(sourceOne.remove());
+    }
+    //same logic above
+    if (sourceTwo.peek()) {
+      thirdQueue.add(sourceTwo.remove());
+    }
+  }
+
+  return thirdQueue;
+}
